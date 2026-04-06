@@ -1,0 +1,48 @@
+{
+    "kind": "collectionType",
+    "collectionName": "carousels",
+    "info": {
+        "singularName": "carousel",
+        "pluralName": "carousels",
+        "displayName": "Carousel",
+        "description": "Hero banner carousel slides"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string",
+            "required": true,
+            "maxLength": 120
+        },
+        "subtitle": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "image": {
+            "type": "media",
+            "multiple": false,
+            "required": true,
+            "allowedTypes": [
+                "images"
+            ]
+        },
+        "link_url": {
+            "type": "string"
+        },
+        "link_text": {
+            "type": "string",
+            "maxLength": 60
+        },
+        "order": {
+            "type": "integer",
+            "default": 0
+        },
+        "is_active": {
+            "type": "boolean",
+            "default": true
+        }
+    }
+}

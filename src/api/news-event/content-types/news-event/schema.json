@@ -1,0 +1,73 @@
+{
+    "kind": "collectionType",
+    "collectionName": "news_events",
+    "info": {
+        "singularName": "news-event",
+        "pluralName": "news-events",
+        "displayName": "News & Event",
+        "description": "News articles and project events"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "title": {
+            "type": "string",
+            "required": true,
+            "maxLength": 255
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "title",
+            "required": true
+        },
+        "excerpt": {
+            "type": "text",
+            "maxLength": 400
+        },
+        "body": {
+            "type": "richtext",
+            "required": true
+        },
+        "date": {
+            "type": "date",
+            "required": true
+        },
+        "image": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images"
+            ]
+        },
+        "category": {
+            "type": "enumeration",
+            "enum": [
+                "news",
+                "event",
+                "announcement",
+                "report",
+                "company",
+                "logistics",
+                "procurement",
+                "technical"
+            ],
+            "default": "news",
+            "required": true
+        },
+        "is_featured": {
+            "type": "boolean",
+            "default": false
+        },
+        "tags": {
+            "type": "string"
+        },
+        "seo": {
+            "type": "component",
+            "repeatable": false,
+            "component": "shared.seo"
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "kind": "singleType",
+    "collectionName": "global_settings",
+    "info": {
+        "singularName": "global-setting",
+        "pluralName": "global-settings",
+        "displayName": "Global Settings",
+        "description": "Site-wide configuration: contact info, branding, footer"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "site_name": {
+            "type": "string",
+            "default": "National Fortification Alliance"
+        },
+        "site_tagline": {
+            "type": "string"
+        },
+        "contact_email": {
+            "type": "email"
+        },
+        "contact_phone": {
+            "type": "string"
+        },
+        "address": {
+            "type": "text"
+        },
+        "twitter_url": {
+            "type": "string"
+        },
+        "facebook_url": {
+            "type": "string"
+        },
+        "linkedin_url": {
+            "type": "string"
+        },
+        "footer_text": {
+            "type": "text"
+        },
+        "logo": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images"
+            ]
+        },
+        "seo": {
+            "type": "component",
+            "repeatable": false,
+            "component": "shared.seo"
+        }
+    }
+}
