@@ -8,7 +8,8 @@ const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
 
     if (!publicRole) return;
 
-    const contentTypes = [
+    // Read-only content types
+    const readContentTypes = [
         'api::carousel.carousel',
         'api::service.service',
         'api::team-member.team-member',
@@ -16,28 +17,26 @@ const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
         'api::global-setting.global-setting',
     ];
 
-    const readActions = ['find', 'findOne'];
-
-    for (const contentType of contentTypes) {
-        for (const action of readActions) {
-            const permissionExists = await strapi
-                .query('plugin::users-permissions.permission')
-                .findOne({
-                    where: {
-                        role: publicRole.id,
-                        action: `${contentType}.${action}`,
-                    },
-                });
-
-            if (!permissionExists) {
+    for (const contentType of readContentTypes) {
+        for (const action of ['find', 'findOne']) {
+            const exists = await strapi.query('plugin::users-permissions.permission')
+                .findOne({ where: { role: publicRole.id, action: `${contentType}.${action}` } });
+            if (!exists) {
                 await strapi.query('plugin::users-permissions.permission').create({
-                    data: {
-                        action: `${contentType}.${action}`,
-                        role: publicRole.id,
-                    },
+                    data: { action: `${contentType}.${action}`, role: publicRole.id },
                 });
             }
         }
+    }
+
+    // Allow public to CREATE contact messages (write-only, no find/findOne)
+    const contactCreateAction = 'api::contact-message.contact-message.create';
+    const contactPermExists = await strapi.query('plugin::users-permissions.permission')
+        .findOne({ where: { role: publicRole.id, action: contactCreateAction } });
+    if (!contactPermExists) {
+        await strapi.query('plugin::users-permissions.permission').create({
+            data: { action: contactCreateAction, role: publicRole.id },
+        });
     }
 
     console.log('✅ Public permissions configured for Ladex Group content types');
