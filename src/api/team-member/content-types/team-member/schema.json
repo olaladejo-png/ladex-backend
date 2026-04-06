@@ -32,6 +32,13 @@
         "images"
       ]
     },
+    "location": {
+      "type": "string"
+    },
+    "flag": {
+      "type": "string",
+      "maxLength": 5
+    },
     "order": {
       "type": "integer",
       "default": 0
