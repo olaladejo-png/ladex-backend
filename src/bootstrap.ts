@@ -10,11 +10,8 @@ const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
 
     const contentTypes = [
         'api::carousel.carousel',
-        'api::news-event.news-event',
         'api::service.service',
-        'api::product-category.product-category',
-        'api::product.product',
-        'api::partner.partner',
+        'api::team-member.team-member',
         'api::about-page.about-page',
         'api::global-setting.global-setting',
     ];
@@ -53,144 +50,96 @@ const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
 
 async function seedSampleData(strapi: Core.Strapi) {
     // Seed Global Settings
-    const existingSettings = await strapi.entityService.findMany('api::global-setting.global-setting', {});
-    if (!existingSettings || Object.keys(existingSettings).length === 0) {
-        await strapi.entityService.create('api::global-setting.global-setting', {
+    const existingSettings = await strapi.entityService.findMany('api::global-setting.global-setting' as any, {});
+    if (!existingSettings || (Array.isArray(existingSettings) && existingSettings.length === 0)) {
+        await strapi.entityService.create('api::global-setting.global-setting' as any, {
             data: {
-                site_name: 'LADEX Group',
-                site_tagline: 'Connecting Europe & Africa: Energy, Technology, Agriculture',
-                contact_email: 'iyiola@ladexgroup.com',
+                site_name: 'Ladex Group',
+                site_tagline: 'Europe to Africa: Equipment & Technical Support',
+                contact_email: 'sales@ladexgroup.com',
                 contact_phone: '+49 1521 816 2816',
                 address: 'Pfaffenhofen, Germany',
-                footer_text: '© 2026 LADEX Group International. All rights reserved.',
-                linkedin_url: 'https://linkedin.com/company/ladex-group',
-                publishedAt: new Date(),
+                footer_text: '© 2026 Ladex Group. All rights reserved.',
+                linkedin_url: 'https://linkedin.com/company/ladexgroup',
+                publishedAt: new Date().toISOString(),
             },
         });
         console.log('✅ Global settings seeded');
     }
 
     // Seed About Page
-    const existingAbout = await strapi.entityService.findMany('api::about-page.about-page', {});
-    if (!existingAbout || Object.keys(existingAbout).length === 0) {
-        await strapi.entityService.create('api::about-page.about-page', {
+    const existingAbout = await strapi.entityService.findMany('api::about-page.about-page' as any, {});
+    if (!existingAbout || (Array.isArray(existingAbout) && existingAbout.length === 0)) {
+        await strapi.entityService.create('api::about-page.about-page' as any, {
             data: {
-                hero_tagline: 'Your Reliable Bridge Between Europe and Africa',
-                mission: 'To make cross-continental trade easier, faster and more profitable for both European suppliers and African producers.',
-                vision: 'To be the most trusted facilitator of sustainable trade and industrial growth between the European and African continents.',
-                background: 'Headquartered in Pfaffenhofen, Germany, Ladex Group serves as a professional bridge between Europe and Africa. With deep roots in both Germany and Nigeria, we understand the cultural, commercial and logistical dynamics of doing business across both continents, giving our clients a genuine competitive advantage.',
-                objectives: '1. Connect European suppliers with emerging African markets.\n2. Enable African producers to access premium European buyers.\n3. Simplify cross-continental logistics and commercial dynamics.\n4. Drive growth in Energy, Technology, and Agriculture sectors.',
-                publishedAt: new Date(),
+                hero_tagline: 'Germany-Based. Africa-Focused.',
+                mission: 'To bridge the gap between European excellence and African opportunity by delivering premium products, technical expertise and reliable trade solutions to Nigeria and West African markets.',
+                vision: 'To be the most trusted bridge between European manufacturers and African industrial sectors, defined by our commitment to quality, technical precision, and operational excellence.',
+                publishedAt: new Date().toISOString(),
             },
         });
         console.log('✅ About page seeded');
     }
 
     // Seed Services
-    const existingServices = await strapi.entityService.findMany('api::service.service', {});
+    const existingServices = await strapi.entityService.findMany('api::service.service' as any, {});
     if (!existingServices || (existingServices as any[]).length === 0) {
         const servicesData = [
             {
-                title: 'Energy Solutions',
-                description: 'Connecting European energy technology with African infrastructure projects to drive sustainable power.',
-                icon: 'zap',
+                title: 'Equipment Sourcing and Supply',
+                description: 'We source and supply genuine European and American equipment directly to clients in Nigeria and West Africa.',
+                icon: 'package',
                 order: 1,
-                publishedAt: new Date(),
+                publishedAt: new Date().toISOString(),
             },
             {
-                title: 'Technology Transfer',
-                description: 'Facilitating the export of advanced European machinery and digital solutions to African industrial hubs.',
-                icon: 'cpu',
+                title: 'Technical Representation',
+                description: 'We act as a technical partner for European and American manufacturers in Nigeria and West Africa.',
+                icon: 'handshake',
                 order: 2,
-                publishedAt: new Date(),
+                publishedAt: new Date().toISOString(),
             },
             {
-                title: 'Agricultural Trade',
-                description: 'Linking African agricultural producers with European markets through efficient supply chain management.',
-                icon: 'leaf',
+                title: 'Engineering Consulting & Project Support',
+                description: 'We support infrastructure and industrial projects by coordinating complete equipment solutions.',
+                icon: 'settings',
                 order: 3,
-                publishedAt: new Date(),
+                publishedAt: new Date().toISOString(),
             }
         ];
         for (const s of servicesData) {
-            await strapi.entityService.create('api::service.service', { data: s });
+            await strapi.entityService.create('api::service.service' as any, { data: s });
         }
         console.log('✅ Services seeded');
     }
 
-    // Seed Product Categories
-    const existingCats = await strapi.entityService.findMany('api::product-category.product-category', {});
-    if (!existingCats || (existingCats as any[]).length === 0) {
-        const catsData = [
-            { name: 'Energy Systems', order: 1, publishedAt: new Date() },
-            { name: 'Industrial Technology', order: 2, publishedAt: new Date() },
-            { name: 'Agricultural Equipment', order: 3, publishedAt: new Date() },
-            { name: 'Sustainable Inputs', order: 4, publishedAt: new Date() }
-        ];
-        for (const c of catsData) {
-            await strapi.entityService.create('api::product-category.product-category', { data: c });
-        }
-        console.log('✅ Product categories seeded');
-    }
-
-    // Seed News
-    const existingNews = await strapi.entityService.findMany('api::news-event.news-event', {});
-    if (!existingNews || (existingNews as any[]).length === 0) {
-        const newsData = [
+    // Seed Team
+    const existingTeam = await strapi.entityService.findMany('api::team-member.team-member' as any, {});
+    if (!existingTeam || (existingTeam as any[]).length === 0) {
+        const teamData = [
             {
-                title: 'Ladex Group Strengthens Germany-Nigeria Trade Ties',
-                excerpt: 'Following our expansion in Pfaffenhofen, Ladex Group deepens its commitment to connecting German engineering with Nigerian industrial demand.',
-                body: '<p>Pfaffenhofen, Germany – Ladex Group is proud to announce new trade routes and partnerships that simplify the flow of technology between Europe and Africa...</p>',
-                category: 'company',
-                date: '2026-02-15',
-                is_featured: true,
-                slug: 'germany-nigeria-trade-ties',
-                publishedAt: new Date(),
-            },
-            {
-                title: 'Sustainable Agriculture: Linking African Producers to Europe',
-                excerpt: 'New logistics framework enables African agricultural producers to meet European standards and access premium markets.',
-                body: '<p>Our agricultural division has successfully launched a new quality compliance program...</p>',
-                category: 'announcement',
-                date: '2026-03-10',
-                is_featured: false,
-                slug: 'sustainable-agriculture-europe',
-                publishedAt: new Date(),
-            }
-        ];
-        for (const article of newsData) {
-            await strapi.entityService.create('api::news-event.news-event', { data: article as any });
-        }
-        console.log('✅ News seeded');
-    }
-
-    // Seed Partners
-    const existingPartners = await strapi.entityService.findMany('api::partner.partner', {});
-    if (!existingPartners || (existingPartners as any[]).length === 0) {
-        const partnersData = [
-            {
-                name: 'German Industrial Export Chamber',
-                website_url: 'https://example.com',
-                description: 'Strategic partner for European machinery export and compliance.',
+                name: 'Lekan Ladejo',
+                role: 'Founder & Chairman',
+                bio: 'Engr. Lekan Ladejo has over 30 years of engineering experience in Nigeria.',
+                location: 'Nigeria',
+                flag: '🇳🇬',
                 order: 1,
-                is_active: true,
-                partner_type: 'Trade',
-                publishedAt: new Date(),
+                publishedAt: new Date().toISOString(),
             },
             {
-                name: 'African Producers Association',
-                website_url: 'https://example.com',
-                description: 'Representative body for African agricultural and raw material producers.',
+                name: 'Iyiola Ladejo',
+                role: 'Director, European Operations',
+                bio: 'Based in Munich Area, Germany, he oversees European procurement and supplier relations.',
+                location: 'Munich Area, Germany',
+                flag: '🇩🇪',
                 order: 2,
-                is_active: true,
-                partner_type: 'Agriculture',
-                publishedAt: new Date(),
+                publishedAt: new Date().toISOString(),
             }
         ];
-        for (const p of partnersData) {
-            await strapi.entityService.create('api::partner.partner', { data: p as any });
+        for (const tm of teamData) {
+            await strapi.entityService.create('api::team-member.team-member' as any, { data: tm });
         }
-        console.log('✅ Partners seeded');
+        console.log('✅ Team seeded');
     }
 }
 
