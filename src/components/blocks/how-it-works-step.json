@@ -1,0 +1,21 @@
+{
+    "collectionName": "components_blocks_how_it_works_steps",
+    "info": {
+        "displayName": "How It Works Step",
+        "icon": "chevron-right",
+        "description": "A single step in the How It Works process"
+    },
+    "options": {},
+    "attributes": {
+        "num": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "type": "text"
+        }
+    }
+}

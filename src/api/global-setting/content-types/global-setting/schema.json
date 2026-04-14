@@ -5,7 +5,7 @@
         "singularName": "global-setting",
         "pluralName": "global-settings",
         "displayName": "Global Settings",
-        "description": "Site-wide configuration: contact info, branding, footer"
+        "description": "Site-wide configuration: contact info, branding, homepage copy, footer"
     },
     "options": {
         "draftAndPublish": false
@@ -14,7 +14,7 @@
     "attributes": {
         "site_name": {
             "type": "string",
-            "default": "National Fortification Alliance"
+            "default": "Ladex Group"
         },
         "site_tagline": {
             "type": "string"
@@ -47,6 +47,58 @@
             "allowedTypes": [
                 "images"
             ]
+        },
+        "homepage_tagline": {
+            "type": "string"
+        },
+        "homepage_intro_1": {
+            "type": "text"
+        },
+        "homepage_intro_2": {
+            "type": "text"
+        },
+        "whoweare_heading": {
+            "type": "string"
+        },
+        "whoweare_body_1": {
+            "type": "text"
+        },
+        "whoweare_body_2": {
+            "type": "text"
+        },
+        "homepage_cta_eyebrow": {
+            "type": "string"
+        },
+        "homepage_cta_heading": {
+            "type": "string"
+        },
+        "homepage_cta_body": {
+            "type": "text"
+        },
+        "services_cta_heading": {
+            "type": "string"
+        },
+        "services_cta_body": {
+            "type": "text"
+        },
+        "about_cta_heading": {
+            "type": "string"
+        },
+        "about_cta_body": {
+            "type": "text"
+        },
+        "brands_list": {
+            "type": "text"
+        },
+        "how_it_works": {
+            "type": "component",
+            "repeatable": true,
+            "component": "blocks.how-it-works-step"
+        },
+        "why_us": {
+            "type": "component",
+            "repeatable": true,
+            "component": "blocks.text-item"
         },
         "seo": {
             "type": "component",

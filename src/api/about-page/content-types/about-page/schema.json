@@ -5,7 +5,7 @@
         "singularName": "about-page",
         "pluralName": "about-pages",
         "displayName": "About Page",
-        "description": "Content for the About / Mission page"
+        "description": "Content for the About page: mission, vision, values, objectives"
     },
     "options": {
         "draftAndPublish": true
@@ -39,6 +39,16 @@
         },
         "background": {
             "type": "text"
+        },
+        "values": {
+            "type": "component",
+            "repeatable": true,
+            "component": "blocks.text-item"
+        },
+        "objectives_list": {
+            "type": "component",
+            "repeatable": true,
+            "component": "blocks.text-item"
         },
         "seo": {
             "type": "component",

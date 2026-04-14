@@ -56,21 +56,78 @@ const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
     }
 };
 
+// ─── Shared seed data factories ───────────────────────────────────────────────
+
+function globalSettingsData() {
+    return {
+        site_name: 'Ladex Group',
+        site_tagline: 'Quality Without Compromise. Europe to the World.',
+        contact_email: 'sales@ladexgroup.com',
+        contact_phone: '+49 1521 816 2816',
+        address: 'Pfaffenhofen, Bavaria, Germany',
+        footer_text: '© 2026 Ladex Group. All rights reserved.',
+        linkedin_url: 'https://linkedin.com/in/iyiola-ladejo',
+        twitter_url: 'https://x.com/iyioladejo',
+        // Homepage copy
+        homepage_tagline: 'Quality Without Compromise. Europe to the World.',
+        homepage_intro_1: 'We supply high-quality European equipment and technical solutions for infrastructure and industrial projects worldwide, with a strong focus on Nigeria and West Africa.',
+        homepage_intro_2: 'From sourcing to delivery, we provide reliable procurement, logistics coordination, and technical support for engineering-driven industries.',
+        whoweare_heading: 'Germany-Based. Global Procurement.',
+        whoweare_body_1: 'Ladex Group is a Germany-based procurement and supply company specializing in sourcing high-quality electrical, automation, and industrial equipment from leading European manufacturers. With operations in Germany and Nigeria, we combine direct access to Europe\'s manufacturing eco-system with on-ground technical support and delivery coordination across Africa and other international markets.',
+        whoweare_body_2: 'From our base in Bavaria, Germany, the heart of Europe\'s industrial network, we provide reliable sourcing, efficient logistics, and trusted supply solutions to our clients globally.',
+        homepage_cta_eyebrow: 'Get Started',
+        homepage_cta_heading: 'Ready to Source European Equipment?',
+        homepage_cta_body: 'Tell us your requirements, specification and timeline. We handle the rest — from supplier identification to delivery.',
+        services_cta_heading: 'Have a Specific Requirement?',
+        services_cta_body: 'Contact us with your specification. We will identify the right supplier and provide a competitive quotation.',
+        about_cta_heading: 'Ready to Source European Equipment?',
+        about_cta_body: 'Share your requirement and specification. Our team will identify the right European supplier and manage the entire procurement process for you.',
+        brands_list: 'ABB,Beckhoff,Danfoss,Eaton,Endress+Hauser,Festo,Fluke,Fronius,Hager,Janitza,Lapp Group,Legrand,Megger,OMICRON,Pepperl+Fuchs,Phoenix Contact,Pilz,Rittal,Schneider Electric,Screening Eagle Technologies,Siemens,SKF,SMA Solar,WAGO',
+        // Structured components
+        how_it_works: [
+            { num: '01', title: 'Tell us what you need', description: 'Share your requirement, specification, quantity and delivery timeline.' },
+            { num: '02', title: 'We source and quote', description: 'We identify the best European supplier and provide a competitive quotation.' },
+            { num: '03', title: 'We deliver', description: 'We manage procurement, export documentation, and shipping to your destination.' },
+        ],
+        why_us: [
+            { icon: 'globe', title: 'Germany Based', description: 'Direct access to European manufacturers and distribution networks' },
+            { icon: 'graduation-cap', title: 'Technically Qualified', description: 'MSc in Electrical Engineering' },
+            { icon: 'map-pin', title: 'Nigeria Presence', description: 'Operations in Ibadan and Lagos' },
+            { icon: 'handshake', title: 'Customer Focus', description: 'End-to-end support from enquiry to delivery' },
+            { icon: 'package', title: 'Complete Service', description: 'Sourcing, logistics, and after-sales support' },
+        ],
+    } as any;
+}
+
+function aboutPageData() {
+    return {
+        hero_tagline: 'Germany-Based. Africa-Focused.',
+        mission: 'To bridge the gap between European excellence and global opportunity; delivering premium products, technical expertise and reliable trade solutions to West African and international markets.',
+        vision: 'To become the most trusted gateway connecting global businesses with European and American industrial solutions.',
+        publishedAt: new Date().toISOString(),
+        values: [
+            { icon: 'shield', title: 'Integrity', description: 'Genuine products always' },
+            { icon: 'gem', title: 'Excellence', description: 'Engineering precision in everything' },
+            { icon: 'clock', title: 'Reliability', description: 'Delivering on every promise' },
+            { icon: 'handshake', title: 'Partnership', description: 'Growing together with our clients' },
+        ],
+        objectives_list: [
+            { icon: 'globe', title: '', description: 'Supply genuine European equipment directly to industrial clients in Nigeria and West Africa.' },
+            { icon: 'trending-up', title: '', description: 'Bridge the gap between European manufacturers and African procurement teams.' },
+            { icon: 'wrench', title: '', description: 'Provide end-to-end technical support from specification through commissioning.' },
+            { icon: 'truck', title: '', description: 'Manage export logistics, documentation and shipping to minimise lead times.' },
+            { icon: 'shield', title: '', description: 'Ensure quality, compliance and accuracy through pre-shipment inspection.' },
+            { icon: 'landmark', title: '', description: 'Act as a trusted technical representative for European manufacturers in West Africa.' },
+        ],
+    } as any;
+}
+
 async function seedSampleData(strapi: Core.Strapi) {
     // Seed Global Settings
     const existingSettings = await strapi.entityService.findMany('api::global-setting.global-setting' as any, {});
     if (!existingSettings || (Array.isArray(existingSettings) && existingSettings.length === 0)) {
         await strapi.entityService.create('api::global-setting.global-setting' as any, {
-            data: {
-                site_name: 'Ladex Group',
-                site_tagline: 'Europe to Africa: Equipment & Technical Support',
-                contact_email: 'sales@ladexgroup.com',
-                contact_phone: '+49 1521 816 2816',
-                address: 'Pfaffenhofen, Germany',
-                footer_text: '© 2026 Ladex Group. All rights reserved.',
-                linkedin_url: ' https://linkedin.com/in/iyiola-ladejo',
-                publishedAt: new Date().toISOString(),
-            },
+            data: globalSettingsData(),
         });
         console.log('✅ Global settings seeded');
     }
@@ -79,12 +136,7 @@ async function seedSampleData(strapi: Core.Strapi) {
     const existingAbout = await strapi.entityService.findMany('api::about-page.about-page' as any, {});
     if (!existingAbout || (Array.isArray(existingAbout) && existingAbout.length === 0)) {
         await strapi.entityService.create('api::about-page.about-page' as any, {
-            data: {
-                hero_tagline: 'Germany-Based. Africa-Focused.',
-                mission: 'To bridge the gap between European excellence and global opportunity; delivering premium products, technical expertise and reliable trade solutions to West African and international markets.',
-                vision: 'To become the most trusted gateway connecting global businesses with European and American industrial solutions.',
-                publishedAt: new Date().toISOString(),
-            },
+            data: aboutPageData(),
         });
         console.log('✅ About page seeded');
     }
@@ -321,36 +373,32 @@ async function reseedAll(strapi: Core.Strapi) {
     const img = (...parts: string[]) => path.join(FRONTEND_PUBLIC, ...parts);
 
     // ── Global Settings ───────────────────────────────────────────────────────
+    // Note: single types return the entity directly (not an array)
     console.log('── Global Settings');
-    const settings: any[] = await strapi.entityService.findMany('api::global-setting.global-setting' as any, {});
-    if (settings && settings.length > 0) {
-        await strapi.entityService.update('api::global-setting.global-setting' as any, settings[0].id, {
-            data: {
-                site_name: 'Ladex Group',
-                site_tagline: 'Europe to Africa: Equipment & Technical Support',
-                contact_email: 'sales@ladexgroup.com',
-                contact_phone: '+49 1521 816 2816',
-                address: 'Pfaffenhofen, Bavaria, Germany',
-                footer_text: '© 2026 Ladex Group. All rights reserved.',
-                linkedin_url: 'http://linkedin.com/in/iyiola-ladejo',
-                twitter_url: 'https://x.com/iyioladejo',
-            } as any,
+    const settingsEntry: any = await strapi.entityService.findMany('api::global-setting.global-setting' as any, {});
+    const settingsId = Array.isArray(settingsEntry) ? settingsEntry[0]?.id : settingsEntry?.id;
+    if (settingsId) {
+        await strapi.entityService.update('api::global-setting.global-setting' as any, settingsId, {
+            data: globalSettingsData(),
         });
         console.log('  ✅ Global settings updated');
+    } else {
+        await strapi.entityService.create('api::global-setting.global-setting' as any, { data: globalSettingsData() });
+        console.log('  ✅ Global settings created');
     }
 
     // ── About Page ────────────────────────────────────────────────────────────
     console.log('── About Page');
-    const aboutPages: any[] = await strapi.entityService.findMany('api::about-page.about-page' as any, {});
-    if (aboutPages && aboutPages.length > 0) {
-        await strapi.entityService.update('api::about-page.about-page' as any, aboutPages[0].id, {
-            data: {
-                hero_tagline: 'Germany-Based. Africa-Focused.',
-                mission: 'To bridge the gap between European excellence and global opportunity; delivering premium products, technical expertise and reliable trade solutions to West African and international markets.',
-                vision: 'To become the most trusted gateway connecting global businesses with European and American industrial solutions.',
-            } as any,
+    const aboutEntry: any = await strapi.entityService.findMany('api::about-page.about-page' as any, {});
+    const aboutId = Array.isArray(aboutEntry) ? aboutEntry[0]?.id : aboutEntry?.id;
+    if (aboutId) {
+        await strapi.entityService.update('api::about-page.about-page' as any, aboutId, {
+            data: aboutPageData(),
         });
         console.log('  ✅ About page updated');
+    } else {
+        await strapi.entityService.create('api::about-page.about-page' as any, { data: aboutPageData() });
+        console.log('  ✅ About page created');
     }
 
     // ── Services — delete old, create 5 correct ones ──────────────────────────

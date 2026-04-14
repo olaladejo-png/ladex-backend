@@ -1,0 +1,20 @@
+{
+    "collectionName": "components_blocks_text_items",
+    "info": {
+        "displayName": "Text Item",
+        "icon": "list",
+        "description": "Reusable item with icon, title and description — used for Why Us, Values, Objectives"
+    },
+    "options": {},
+    "attributes": {
+        "icon": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        }
+    }
+}
