@@ -433,7 +433,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutPageAboutPage extends Struct.SingleTypeSchema {
   collectionName: 'about_pages';
   info: {
-    description: 'Content for the About / Mission page';
+    description: 'Content for the About page: mission, vision, values, objectives';
     displayName: 'About Page';
     pluralName: 'about-pages';
     singularName: 'about-page';
@@ -460,11 +460,13 @@ export interface ApiAboutPageAboutPage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     mission: Schema.Attribute.Text & Schema.Attribute.Required;
     objectives: Schema.Attribute.Text;
+    objectives_list: Schema.Attribute.Component<'blocks.text-item', true>;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    values: Schema.Attribute.Component<'blocks.text-item', true>;
     vision: Schema.Attribute.Text;
   };
 }
@@ -554,7 +556,7 @@ export interface ApiContactMessageContactMessage
 export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
   collectionName: 'global_settings';
   info: {
-    description: 'Site-wide configuration: contact info, branding, footer';
+    description: 'Site-wide configuration: contact info, branding, homepage copy, footer';
     displayName: 'Global Settings';
     pluralName: 'global-settings';
     singularName: 'global-setting';
@@ -563,7 +565,10 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    about_cta_body: Schema.Attribute.Text;
+    about_cta_heading: Schema.Attribute.String;
     address: Schema.Attribute.Text;
+    brands_list: Schema.Attribute.Text;
     contact_email: Schema.Attribute.Email;
     contact_phone: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -571,6 +576,13 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     facebook_url: Schema.Attribute.String;
     footer_text: Schema.Attribute.Text;
+    homepage_cta_body: Schema.Attribute.Text;
+    homepage_cta_eyebrow: Schema.Attribute.String;
+    homepage_cta_heading: Schema.Attribute.String;
+    homepage_intro_1: Schema.Attribute.Text;
+    homepage_intro_2: Schema.Attribute.Text;
+    homepage_tagline: Schema.Attribute.String;
+    how_it_works: Schema.Attribute.Component<'blocks.how-it-works-step', true>;
     linkedin_url: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -581,13 +593,19 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
     logo: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo', false>;
+    services_cta_body: Schema.Attribute.Text;
+    services_cta_heading: Schema.Attribute.String;
     site_name: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'National Fortification Alliance'>;
+      Schema.Attribute.DefaultTo<'Ladex Group'>;
     site_tagline: Schema.Attribute.String;
     twitter_url: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    whoweare_body_1: Schema.Attribute.Text;
+    whoweare_body_2: Schema.Attribute.Text;
+    whoweare_heading: Schema.Attribute.String;
+    why_us: Schema.Attribute.Component<'blocks.text-item', true>;
   };
 }
 
